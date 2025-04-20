@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include "init_system.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+#include "xuartlite.h"
+#include "xintc.h"
+#include "xil_exception.h"
+#include "xtmrctr.h"
+#include "sleep.h"
+
+
+
+XUartLite Uartlite;
+XIntc		Xintc;
+XTmrCtr		Timer;
+
+
+u8 test;
+int main()
+{
+
+	//xil_printf("Hello World\n\r");
+	init_timer(&Timer);
+
+
+	setup_interrupt_system (&Uartlite, &Xintc ,&Timer);
+	start_timer(&Timer,0);
+
+while(1) {
+
+
+
+if(test=0x01)
+{
+	start_timer(&Timer,0);
+}
+
+	test=XTmrCtr_IsExpired(&Timer, 0);
+}
+    return 0;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="ucp_app" location="C:/Users/alise/Desktop/VIVADO/PROJECTS/UART_COMMAND_PARSER/vitis/ucp_app" platform="C:/Users/alise/Desktop/VIVADO/PROJECTS/UART_COMMAND_PARSER/vitis/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm" platformUID="xilinx:nexys4_ddr::0.0(custom)" systemProject="ucp_app_system" sysConfig="design_1_wrapper" runtime="cpp" cpu="domain_microblaze_0" cpuInstance="microblaze_0" os="standalone" mssSignature="ce24459eab42d796b07a1c53dd7a734e">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.1245215902">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.1555798323" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="hello_world"/>
+</sdkproject:SdkProject>

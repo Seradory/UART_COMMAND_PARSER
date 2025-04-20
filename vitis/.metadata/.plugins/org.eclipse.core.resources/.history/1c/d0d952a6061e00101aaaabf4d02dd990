@@ -1,0 +1,39 @@
+
+#ifndef __PLATFORM_CONFIG_H_
+#define __PLATFORM_CONFIG_H_
+
+
+
+#include <stdio.h>
+#include "xparameters.h"
+#include "xuartlite.h"
+#include "xintc.h"
+#include "xil_exception.h"
+#include "xil_printf.h"
+#include "xtmrctr.h"
+
+
+
+
+void setup_interrupt_system (XUartLite* Uartlite, XIntc* Int_Controller ,XTmrCtr* Timer);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif

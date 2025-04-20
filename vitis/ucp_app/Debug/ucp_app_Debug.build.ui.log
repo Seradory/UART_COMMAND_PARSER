@@ -1,0 +1,45 @@
+2025-04-20T22:09:32.618938200255-22:09:32 **** Incremental Build of configuration Debug for project ucp_app ****
+000-make all 
+000-'Building file: ../src/init_system.c'
+000-'Invoking: MicroBlaze gcc compiler'
+000-mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/init_system.o" -IC:/Users/alise/Desktop/VIVADO/PROJECTS/UART_COMMAND_PARSER/vitis/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/domain_microblaze_0/bspinclude/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/init_system.d" -MT"src/init_system.o" -o "src/init_system.o" "../src/init_system.c"
+000/ucp_app/src/init_system.c9-1-1'RECV_INDEX' initialized and declared 'extern'1-../src/init_system.c:9:16: warning: 'RECV_INDEX' initialized and declared 'extern'
+000-    9 | extern uint8_t RECV_INDEX = 0;
+000-      |                ^~~~~~~~~~
+000/ucp_app/src/init_system.c10-1-1'RECV_ARRAY' initialized and declared 'extern'1-../src/init_system.c:10:16: warning: 'RECV_ARRAY' initialized and declared 'extern'
+000-   10 | extern uint8_t RECV_ARRAY[100]={};
+000-      |                ^~~~~~~~~~
+000/ucp_app/src/init_system.c11-1-1'UART_RECV_DONE' initialized and declared 'extern'1-../src/init_system.c:11:16: warning: 'UART_RECV_DONE' initialized and declared 'extern'
+000-   11 | extern uint8_t UART_RECV_DONE = 0x00;
+000-      |                ^~~~~~~~~~~~~~
+000-'Finished building: ../src/init_system.c'
+000-' '
+000-'Building file: ../src/main.c'
+000-'Invoking: MicroBlaze gcc compiler'
+000-mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/main.o" -IC:/Users/alise/Desktop/VIVADO/PROJECTS/UART_COMMAND_PARSER/vitis/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/domain_microblaze_0/bspinclude/include -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.o" -o "src/main.o" "../src/main.c"
+000-../src/main.c: In function 'main':
+000/ucp_app/src/main.c29-1-1unused variable 'UART_RECV_DONE' [-Wunused-variable]1-../src/main.c:29:10: warning: unused variable 'UART_RECV_DONE' [-Wunused-variable]
+000-   29 |  uint8_t UART_RECV_DONE = 0x00;
+000-      |          ^~~~~~~~~~~~~~
+000/ucp_app/src/main.c28-1-1unused variable 'RECV_ARRAY' [-Wunused-variable]1-../src/main.c:28:10: warning: unused variable 'RECV_ARRAY' [-Wunused-variable]
+000-   28 |  uint8_t RECV_ARRAY[100];
+000-      |          ^~~~~~~~~~
+000/ucp_app/src/main.c27-1-1unused variable 'RECV_INDEX' [-Wunused-variable]1-../src/main.c:27:10: warning: unused variable 'RECV_INDEX' [-Wunused-variable]
+000-   27 |  uint8_t RECV_INDEX = 0;
+000-      |          ^~~~~~~~~~
+000-'Finished building: ../src/main.c'
+000-' '
+000-'Building target: ucp_app.elf'
+000-'Invoking: MicroBlaze gcc linker'
+000-mb-gcc -Wl,-T -Wl,../src/lscript.ld -LC:/Users/alise/Desktop/VIVADO/PROJECTS/UART_COMMAND_PARSER/vitis/design_1_wrapper/export/design_1_wrapper/sw/design_1_wrapper/domain_microblaze_0/bsplib/lib -mlittle-endian -mcpu=v11.0 -mxl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "ucp_app.elf"  ./src/init_system.o ./src/main.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+000-'Finished building target: ucp_app.elf'
+000-' '
+000-'Invoking: MicroBlaze Print Size'
+000-mb-size ucp_app.elf  |tee "ucp_app.elf.size"
+000-   text	   data	    bss	    dec	    hex	filename
+000-  12888	    340	   3468	  16696	   4138	ucp_app.elf
+000-'Finished building: ucp_app.elf.size'
+000-' '
+00255-
+22:09:33 Build Finished (took 688ms)
+

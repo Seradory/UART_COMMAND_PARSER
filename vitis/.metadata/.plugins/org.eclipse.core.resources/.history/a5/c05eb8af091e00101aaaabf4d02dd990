@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include "init_system.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+#include "xuartlite.h"
+#include "xintc.h"
+#include "xil_exception.h"
+#include "xtmrctr.h"
+
+
+XUartLite* Uartlite;
+XIntc*		Xintc;
+XTmrCtr*		Timer;
+
+
+
+
+int main()
+{
+	 print("Hello World\n\r");
+	void setup_interrupt_system (Uartlite, Xintc ,Timer);
+
+
+
+
+
+    return 0;
+}

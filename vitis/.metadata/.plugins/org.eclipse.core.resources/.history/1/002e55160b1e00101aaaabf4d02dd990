@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include "init_system.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+#include "xuartlite.h"
+#include "xintc.h"
+#include "xil_exception.h"
+#include "xtmrctr.h"
+#include "sleep.h"
+
+
+
+
+
+
+
+int main()
+{
+
+	 XUartLite* Uartlite;
+	 XIntc*		Xintc;
+	 XTmrCtr*		Timer;
+
+
+
+
+
+	//xil_printf("Hello World\n\r");
+	init_timer(Timer);
+
+	XIntc_Initialize(Xintc, 0);
+
+	setup_interrupt_system (Uartlite, Xintc ,Timer);
+
+	start_timer(Timer,100);
+
+	sleep(5);
+
+    return 0;
+}

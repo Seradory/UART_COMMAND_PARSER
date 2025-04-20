@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include "init_system.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+#include "xuartlite.h"
+#include "xintc.h"
+#include "xil_exception.h"
+#include "xtmrctr.h"
+#include "sleep.h"
+
+
+
+XUartLite Uartlite;
+XIntc		Xintc;
+XTmrCtr		Timer;
+
+
+u32 test;
+int main()
+{
+	init_uart(&Uartlite);
+	xil_printf("Hello World");
+	init_timer(&Timer);
+	setup_interrupt_system (&Uartlite, &Xintc ,&Timer);
+	//start_timer(&Timer,0);
+
+	uint8_t RECV_INDEX = 0;
+	uint8_t RECV_ARRAY[100];
+	uint8_t UART_RECV_DONE = 0x00;
+
+while(1) {
+	test= XTmrCtr_GetValue(&Timer, 0);
+	//test=XTmrCtr_IsExpired(&Timer, 0);
+
+//if(test==0x01)
+//{
+	//XTmrCtr_Stop(&Timer, 0);
+//	XTmrCtr_Reset(&Timer, 0);
+//	start_timer(&Timer,0);
+//}
+
+
+}
+    return 0;
+}

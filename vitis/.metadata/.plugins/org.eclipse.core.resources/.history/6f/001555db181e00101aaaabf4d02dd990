@@ -1,0 +1,93 @@
+
+
+#include "init_system.h"
+
+extern XUartLite Uartlite;
+extern XIntc		Xintc;
+extern XTmrCtr		Timer;
+
+void init_uart(XUartLite* Uartlite)
+{
+	XUartLite_Initialize(Uartlite, UARTLITE_DEVICE_ID);
+	XUartLite_SetRecvHandler(Uartlite, RecvHandler, Uartlite);
+
+
+}
+
+void init_timer(XTmrCtr* Timer)
+{
+
+	XTmrCtr_Initialize(Timer, TMRCTR_DEVICE_ID);
+	XTmrCtr_SetHandler(Timer, TimerCounterHandler,Timer);
+
+	XTmrCtr_SetOptions(Timer, 0, XTC_INT_MODE_OPTION|XTC_AUTO_RELOAD_OPTION|XTC_DOWN_COUNT_OPTION);
+	XTmrCtr_SetResetValue(Timer, 0, RESET_VALUE);
+	XTmrCtr_Reset(Timer, 0);
+}
+
+void start_timer(XTmrCtr* Timer,uint8_t TmrCtrNumber)
+{
+	XTmrCtr_Stop(Timer, TmrCtrNumber);
+	XTmrCtr_Reset(Timer, TmrCtrNumber);
+	XTmrCtr_Start(Timer, TmrCtrNumber);
+}
+
+void stop_timer(XTmrCtr* Timer,uint8_t TmrCtrNumber)
+{
+	XTmrCtr_Stop(Timer, TmrCtrNumber);
+	XTmrCtr_Reset(Timer, TmrCtrNumber);
+
+}
+
+
+
+void setup_interrupt_system (XUartLite* Uartlite, XIntc* Int_Controller ,XTmrCtr* Timer)
+{
+
+	XIntc_Initialize(Int_Controller, INTC_DEVICE_ID);
+
+
+	XIntc_Connect(Int_Controller, TMRCTR_INTERRUPT_ID,(XInterruptHandler)XTmrCtr_InterruptHandler,(void *)Timer);
+
+	XIntc_Connect(Int_Controller, UARTLITE_INT_IRQ_ID,(XInterruptHandler)XUartLite_InterruptHandler,(void *)Uartlite);
+
+
+
+
+	XIntc_Start(Int_Controller, XIN_REAL_MODE);
+
+	XIntc_Enable(Int_Controller, TMRCTR_INTERRUPT_ID);
+
+	XIntc_Enable(Int_Controller, UARTLITE_INT_IRQ_ID);
+
+	XUartLite_EnableInterrupt(Uartlite);
+
+	Xil_ExceptionInit();
+
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,(Xil_ExceptionHandler)INTC_HANDLER,Int_Controller);
+
+	Xil_ExceptionEnable();
+
+	//XIntc_Enable(Int_Controller, UARTLITE_INT_IRQ_ID);
+}
+
+void RecvHandler(void *CallBackRef, unsigned int EventData)
+{
+	if(RECV_INDEX==0) {
+		start_timer(&Timer, 0);
+		UART_RECV_DONE=0;
+	}
+	XUartLite *Uartlite = (XUartLite*) CallBackRef;
+	XUartLite_Recv(Uartlite, RECV_ARRAY+RECV_INDEX, 1);
+	RECV_INDEX++;
+}
+
+void TimerCounterHandler(void *CallBackRef, uint8_t TmrCtrNumber)
+{
+	XTmrCtr *InstancePtr = (XTmrCtr *)CallBackRef;
+
+	XTmrCtr_Stop(InstancePtr, 0);
+	XTmrCtr_Reset(InstancePtr, 0);
+	UART_RECV_DONE=0x01;
+	RECV_INDEX=0;
+}

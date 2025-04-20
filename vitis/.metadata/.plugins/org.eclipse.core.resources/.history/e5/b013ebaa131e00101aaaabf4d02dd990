@@ -1,0 +1,73 @@
+
+
+#include "init_system.h"
+
+
+
+
+void init_timer(XTmrCtr* Timer)
+{
+
+	XTmrCtr_Initialize(Timer, TMRCTR_DEVICE_ID);
+	XTmrCtr_SetHandler(Timer, TimerCounterHandler,Timer);
+
+	XTmrCtr_SetOptions(Timer, 0,XTC_INT_MODE_OPTION); //AUTO RELOAD KAPALI. TEKRAR BASLATMAK GEREKECEK.
+	XTmrCtr_SetResetValue(Timer, 0, RESET_VALUE);
+	XTmrCtr_Reset(Timer, 0);
+}
+
+void start_timer(XTmrCtr* Timer,uint8_t TmrCtrNumber)
+{
+	XTmrCtr_Stop(Timer, TmrCtrNumber);
+	XTmrCtr_Reset(Timer, TmrCtrNumber);
+	XTmrCtr_Start(Timer, TmrCtrNumber);
+}
+
+void stop_timer(XTmrCtr* Timer,uint8_t TmrCtrNumber)
+{
+	XTmrCtr_Stop(Timer, TmrCtrNumber);
+	XTmrCtr_Reset(Timer, TmrCtrNumber);
+
+}
+
+
+
+void setup_interrupt_system (XUartLite* Uartlite, XIntc* Int_Controller ,XTmrCtr* Timer)
+{
+
+	XIntc_Initialize(Int_Controller, INTC_DEVICE_ID);
+
+
+	XIntc_Connect(Int_Controller, TMRCTR_INTERRUPT_ID,(XInterruptHandler)XTmrCtr_InterruptHandler,(void *)Timer);
+
+	//XIntc_Connect(Int_Controller, UARTLITE_INT_IRQ_ID,(XInterruptHandler)XTmrCtr_InterruptHandler,(void *)Uartlite);
+
+
+
+
+	XIntc_Start(Int_Controller, XIN_REAL_MODE);
+
+	XIntc_Enable(Int_Controller, TMRCTR_INTERRUPT_ID);
+
+	Xil_ExceptionInit();
+
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,(Xil_ExceptionHandler)INTC_HANDLER,Int_Controller);
+
+	Xil_ExceptionEnable();
+
+	//XIntc_Enable(Int_Controller, UARTLITE_INT_IRQ_ID);
+}
+
+
+
+void TimerCounterHandler(void *CallBackRef, uint8_t TmrCtrNumber)
+{
+	XTmrCtr *InstancePtr = (XTmrCtr *)CallBackRef;
+
+	XTmrCtr_SetOptions(InstancePtr, 0, XTC_INT_MODE_OPTION);
+
+	XTmrCtr_Reset(InstancePtr, 0);
+
+	XTmrCtr_Start(InstancePtr, 0);
+
+}
